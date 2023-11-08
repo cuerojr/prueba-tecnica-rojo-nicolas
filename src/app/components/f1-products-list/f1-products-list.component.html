@@ -1,0 +1,32 @@
+<div style="max-width: 960px;margin: 0 auto;">
+  <div style="display: flex; align-items: center; justify-content: space-between; padding: 1rem;">
+    <app-f2-searchbar></app-f2-searchbar>
+    <app-f4-add-product-btn></app-f4-add-product-btn>
+  </div>
+
+  <div style="display: flex;align-items: center;justify-content: center;">
+    <table style="background-color: white;" class="table">
+      <thead>
+        <tr>
+          <th scope="col">Logo</th>
+          <th scope="col">Nombre del Producto</th>
+          <th scope="col">Descripción</th>
+          <th scope="col">Fecha de liberación</th>
+          <th scope="col">Fecha de reestructuración</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of allProducts">
+          <td><img style="width: 50px;" src="{{ item.logo }}" /></td>
+          <td>{{ item.name }}</td>
+          <td>{{ item.description }}</td>
+          <td>{{ item.date_release }}</td>
+          <td>{{ item.date_revision }}</td>
+          <td><app-kebab></app-kebab></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <app-f3-register-quantity-select></app-f3-register-quantity-select>
+</div>

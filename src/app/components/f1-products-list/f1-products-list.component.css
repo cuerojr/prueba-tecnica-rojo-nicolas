@@ -1,0 +1,42 @@
+.main-section {
+  max-width: 1140px;
+  width: 66vw;
+}
+
+.search-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+}
+
+.search-navbar input {
+  margin: 0;
+  width: 15vw;
+}
+
+.table-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-x: auto;
+}
+
+.table-container table {
+  background-color: white;
+}
+
+thead {
+  background-color: #f9fafc;
+}
+
+th {
+  font-size: small;
+  font-weight: 600;
+  padding: .5rem;
+}
+
+td {
+  font-size: small;
+  padding: .5rem;
+}

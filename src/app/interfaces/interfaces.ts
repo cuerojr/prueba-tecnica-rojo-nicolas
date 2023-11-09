@@ -6,4 +6,5 @@ export interface Product {
   logo: String;
   date_release: Date;
   date_revision: Date;
+  [key: string]: any
 }

@@ -9,17 +9,8 @@ import { ProductsService } from 'src/app/services/service.service';
 })
 export class F1ProductsListComponent implements OnInit {
   allProducts: Product[] = [];
-  filteredProducts: Product[] = [];
-  _filterText: string = '';
-
-  get filterText() {
-    return this._filterText;
-  }
-
-  set filterText(value: string) {
-    this._filterText = value;
-    this.filteredProducts = this.filterProducts(value);
-  }
+  searchTerm: string = '';
+  qtyTerm: number | undefined;
 
   constructor(private productsService: ProductsService) {}
 
@@ -30,17 +21,8 @@ export class F1ProductsListComponent implements OnInit {
   getAPI() {
     this.productsService.getProducts().subscribe((data) => {
       this.allProducts = data;
-      console.log(data)
     });
   }
 
-  filterProducts(filterTerm: string) {
-    if(this.allProducts.length === 0 || this.filterText === ''){
-      return this.allProducts;
-    } else {
-      return this.allProducts.filter((product) => {
-        return product.name.toLowerCase() === filterTerm.toLowerCase();
-      })
-    }
-  }
+  onDeleteClick(id: String) {}
 }

@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -11,6 +12,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { F4AddProductBtnComponent } from './components/f4-add-product-btn/f4-add-product-btn.component';
 import { F4AddProductFormComponent } from './components/f4-add-product-form/f4-add-product-form.component';
 import { KebabComponent } from './components/kebab/kebab.component';
+import { FilterPipe } from './pipes/filter.pipe';
+import { F4ProductDetailComponent } from './components/f4-product-detail/f4-product-detail.component';
 
 @NgModule({
   declarations: [
@@ -21,12 +24,16 @@ import { KebabComponent } from './components/kebab/kebab.component';
     NavbarComponent,
     F4AddProductBtnComponent,
     F4AddProductFormComponent,
-    KebabComponent
+    KebabComponent,
+    FilterPipe,
+    F4ProductDetailComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

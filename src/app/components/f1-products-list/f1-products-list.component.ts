@@ -25,4 +25,8 @@ export class F1ProductsListComponent implements OnInit {
   }
 
   onDeleteClick(id: String) {}
+
+  formatDate(value: Date): String {
+    return new Intl.DateTimeFormat('en-US').format(value)
+  }
 }

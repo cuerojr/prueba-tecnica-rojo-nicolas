@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ProductsService } from 'src/app/services/service.service';
 
 @Component({
@@ -15,12 +15,12 @@ export class F4ProductDetailComponent {
   productId = 0;
 
   applyForm = new FormGroup({
-    id: new FormControl(''),
-    name: new FormControl(''),
-    description: new FormControl(''),
-    logo: new FormControl(''),
-    date_release: new FormControl(''),
-    date_revision: new FormControl('')
+    id: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(10)]),
+    name: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]),
+    description: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(200)]),
+    logo: new FormControl('', Validators.required),
+    date_release: new FormControl('', Validators.required),
+    date_revision: new FormControl('', Validators.required)
   })
 
   constructor() {

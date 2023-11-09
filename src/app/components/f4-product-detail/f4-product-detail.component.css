@@ -7,3 +7,20 @@
   margin-bottom: 1rem;
 }
 
+input.ng-invalid.ng-touched {
+  border: 1px solid red!important;
+}
+
+input.ng-valid.ng-touched {
+  border: 1px solid #eaeaea!important;
+}
+
+.invalid-notification {
+  font-size: .7rem;
+  color: red;
+  margin: 0;
+  padding: 0;
+  margin-top: .3rem;
+  position: absolute;
+
+}

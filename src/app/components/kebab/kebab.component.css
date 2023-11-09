@@ -1,0 +1,8 @@
+button {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid lightgray;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  margin: auto;
+}

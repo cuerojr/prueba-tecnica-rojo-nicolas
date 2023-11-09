@@ -14,6 +14,7 @@ import { F4AddProductFormComponent } from './components/f4-add-product-form/f4-a
 import { KebabComponent } from './components/kebab/kebab.component';
 import { FilterPipe } from './pipes/filter.pipe';
 import { F4ProductDetailComponent } from './components/f4-product-detail/f4-product-detail.component';
+import { ToolTipComponent } from './components/tool-tip/tool-tip.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { F4ProductDetailComponent } from './components/f4-product-detail/f4-prod
     F4AddProductFormComponent,
     KebabComponent,
     FilterPipe,
-    F4ProductDetailComponent
+    F4ProductDetailComponent,
+    ToolTipComponent
   ],
   imports: [
     BrowserModule,

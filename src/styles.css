@@ -35,7 +35,6 @@ button {
   background-color: #fff199;
 }
 
-
 .form-group {
   display: flex;
   align-items: center;
@@ -46,17 +45,16 @@ button {
 .input-container {
   display: grid;
   width: 100%;
+  margin-bottom: 1.2rem;
 }
 
 .input-container label {
   font-size: small;
-  margin-bottom: .5rem;
   font-weight: 600;
 }
 
 .form-control {
   padding: .5rem .75rem;
-  margin-bottom: 1rem;
   border: 1px solid #eaeaea!important;
   border-radius: 3px;
 }
@@ -65,4 +63,19 @@ button {
   display: flex;
   align-items: center;
   justify-content: space-around;
+}
+
+.truncate {
+  width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.m-auto {
+  margin: auto;
 }

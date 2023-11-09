@@ -16,27 +16,33 @@
 }
 
 .table-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow-x: auto;
+  overflow-x: scroll;
 }
 
 .table-container table {
   background-color: white;
+  border-collapse: collapse;
 }
 
 thead {
   background-color: #f9fafc;
+  text-align: left;
 }
 
 th {
   font-size: small;
   font-weight: 600;
-  padding: .5rem;
+  padding: 1.5rem 0.3rem;
+  border: 0;
 }
 
 td {
   font-size: small;
-  padding: .5rem;
+  padding: 0.3rem;
+  border-right: 0!important;
+  border-bottom: 1px solid #d1d1d1!important;
+}
+
+.kebab-container {
+  max-width: 2rem;
 }

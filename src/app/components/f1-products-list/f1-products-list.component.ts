@@ -23,6 +23,7 @@ export class F1ProductsListComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadData();
+    document.addEventListener('click', this.globalClick.bind(this));
   }
 
   loadData() {
@@ -67,12 +68,15 @@ export class F1ProductsListComponent implements OnInit {
 
   @HostListener('document:click')
   closeOptions(): void {
-    this.showOptions = false;
+    if (!this.isModalVisible) {
+      this.showOptions = false;
+    }
   }
 
   showDeleteConfirmationModal(itemId: string) {
     this.itemToDeleteId = itemId;
     this.isModalVisible = true;
+    this.showOptions = false;
   }
 
   onModalConfirmed(isConfirmed: boolean) {
@@ -84,4 +88,18 @@ export class F1ProductsListComponent implements OnInit {
     this.isModalVisible = false;
   }
 
+  globalClick(event: any) {
+    // Check if the clicked element is outside the dropdown
+    const targetElement = event.target as HTMLElement;
+    const dropdownContainer = document.querySelector('.dropdown-container');
+
+    if (dropdownContainer && !dropdownContainer.contains(targetElement)) {
+      // Clicked outside the dropdown, close options
+      this.selectedItem = null;
+    }
+  }
+
+  ngOnDestroy() {
+    document.removeEventListener('click', this.globalClick.bind(this));
+  }
 }

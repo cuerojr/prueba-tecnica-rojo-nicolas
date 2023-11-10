@@ -7,6 +7,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
 })
 export class DeleteConfirmationModalComponent {
   @Output() confirmed = new EventEmitter<boolean>();
+  isVisible: boolean = false;
 
   confirm() {
     this.confirmed.emit(true);
@@ -14,6 +15,10 @@ export class DeleteConfirmationModalComponent {
 
   cancel() {
     this.confirmed.emit(false);
+  }
+
+  isModalVisible(event: MouseEvent): boolean {
+    return this.isVisible;
   }
 }
 

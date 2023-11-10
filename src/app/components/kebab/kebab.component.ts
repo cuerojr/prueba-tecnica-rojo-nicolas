@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './kebab.component.html',
   styleUrls: ['./kebab.component.css']
 })
-export class KebabComponent {
-
-}
+export class KebabComponent { }

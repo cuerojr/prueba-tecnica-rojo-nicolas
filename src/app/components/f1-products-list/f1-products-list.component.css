@@ -39,10 +39,22 @@ th {
 td {
   font-size: small;
   padding: 0.3rem;
-  border-right: 0!important;
-  border-bottom: 1px solid #d1d1d1!important;
+  border-right: 0 !important;
+  border-bottom: 1px solid #d1d1d1 !important;
+}
+
+td:last-child {
+  margin-bottom: 1rem;
 }
 
 .kebab-container {
   max-width: 2rem;
+}
+
+.paginator {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  padding: 1rem;
+  gap: 1rem;
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Product } from 'src/app/interfaces/interfaces';
 import { ProductsService } from 'src/app/services/service.service';
 
@@ -14,6 +14,9 @@ export class F1ProductsListComponent implements OnInit {
   currentPage: number = 1;
   itemsPerPage: number = 5;
   Math = Math;
+  showOptions = false;
+  selectedItem: String | null = null;
+  products: any;
 
   constructor(private productsService: ProductsService) {}
 
@@ -42,6 +45,27 @@ export class F1ProductsListComponent implements OnInit {
     );
   }
 
-  onDeleteClick(id: String) {}
+  toggleOptions(itemId: String): void {
+    this.selectedItem = this.selectedItem === itemId ? null : itemId;
+  }
 
+  onDeleteClick(itemId: string): void {
+    this.productsService.deleteProduct(itemId).subscribe(
+      (response: string) => {
+        // Remove the item from the local array
+        console.log('Item deleted successfully. Server response:', response);
+      },
+      (error: any) => {
+        this.filteredData = this.filteredData.filter((item: Product) => item.id !== itemId);
+      },
+      () => {
+
+      }
+    );
+  }
+
+  @HostListener('document:click')
+  closeOptions(): void {
+    this.showOptions = false;
+  }
 }

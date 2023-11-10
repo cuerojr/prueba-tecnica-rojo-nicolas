@@ -24,11 +24,11 @@
           <td>{{ item.description }}</td>
           <td>{{ item.date_release | date:"shortDate" }}</td>
           <td>{{ item.date_revision | date:"shortDate" }}</td>
-          <td>
-            <app-kebab></app-kebab>
-            <ul style="display: none;align-items: center;list-style: none;">
+          <td class="dropdown-container">
+            <app-kebab (click)="toggleOptions(item.id)"></app-kebab>
+            <ul class="options-list" [ngClass]="{ 'show-options': selectedItem === item.id }">
               <li><a [routerLink]="['product-detail', item.id]">Edit</a></li>
-              <li><a (click)="onDeleteClick(item.id)">Delete</a></li>
+              <li><a href="#!" (click)="onDeleteClick(item.id.toString())">Delete</a></li>
             </ul>
           </td>
         </tr>
@@ -36,7 +36,7 @@
     </table>
   </div>
 
-  <div style="display: flex;align-items: center;justify-content: end;padding: 1rem;">
+  <div class="paginator">
 
     <div>
       <button (click)="currentPage = currentPage - 1" [disabled]="currentPage === 1">Previous</button>

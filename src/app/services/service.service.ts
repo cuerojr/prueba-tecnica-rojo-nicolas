@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
 
-import { Observable, of } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { Observable, of, throwError } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
 
 import { Product } from '../interfaces/interfaces';
 
@@ -14,12 +13,9 @@ export class ProductsService {
   private baseUrl: String =
     'https://tribu-ti-staffing-desarrollo-afangwbmcrhucqfh.z01.azurefd.net/';
   private authorId: String = '2';
-  private cachedData: Product[] = [];
+  public cachedData: Product[] = [];
 
-  constructor(
-    private http: HttpClient,
-    private router: Router
-  ) {}
+  constructor(private http: HttpClient) {}
 
   getProducts(): Observable<Product[]> {
     if (this.cachedData.length > 0) {
@@ -49,12 +45,19 @@ export class ProductsService {
     logo: String,
     date_release: String,
     date_revision: String
-  ): any {
-    if (!id || !name || !description || !logo || !date_release || !date_revision) {
-      return;
+  ): Observable<any> {
+    if (
+      !id ||
+      !name ||
+      !description ||
+      !logo ||
+      !date_release ||
+      !date_revision
+    ) {
+      return throwError('Invalid input data') as Observable<any>;
     }
 
-    this.http
+    return this.http
       .post(
         `${this.baseUrl}/ipf-msa-productosfinancieros/bp/products`,
         {
@@ -67,24 +70,50 @@ export class ProductsService {
         },
         {
           headers: {
-            'authorId': `${this.authorId}`,
+            authorId: `${this.authorId}`,
           },
         }
       )
-      .subscribe(
-        (res) => {
-          if (res) {
-            this.router.navigate(['/']);
-          }
-        },
-        (error) => {
+      .pipe(
+        map((res: any) => {
+          return of(this.cachedData.push(res));
+        }),
+        catchError((error) => {
           this.handleError('createProduct', error);
-
-        }
+          return throwError(error) as Observable<any>;
+        })
       );
   }
 
-  private handleError<T>(operation = 'operation', result?: T) {
+  deleteProduct(id: string): Observable<string> {
+    return this.http.delete<string>(
+      `${this.baseUrl}/ipf-msa-productosfinancieros/bp/products?id=${id}`,
+      {
+        headers: {
+          authorId: `${this.authorId}`,
+        },
+      }
+    );
+  }
+
+  checkIdAvailability(id: string): Observable<boolean> {
+    return this.http.get<boolean>(
+      `${this.baseUrl}/ipf-msa-productosfinancieros/bp/products/verification?id=${id}`,
+      {
+        headers: {
+          authorId: `${this.authorId}`,
+        },
+      }
+    ).pipe(
+      catchError((error) => {
+        // Handle errors, log, or propagate the error as needed
+        this.handleError('checkIdAvailability', error);
+        return throwError(error) as Observable<boolean>;
+      })
+    );
+  }
+
+  public handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error); // Log the error
       return of(result as T);

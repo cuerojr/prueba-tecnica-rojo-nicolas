@@ -8,19 +8,17 @@
       <div class="input-container">
         <label for="id">ID</label>
         <input id="id" type="text" class="form-control" formControlName="id" />
-        <div
-          *ngIf="
-            applyForm.controls['id'].invalid &&
-            (applyForm.controls['id'].dirty || applyForm.controls['id'].touched)
-          "
-          class="alert"
-        >
-          <p
-            class="invalid-notification"
-            *ngIf="applyForm.controls['id'].errors"
-          >
-            ID no válido!
-          </p>
+
+        <div *ngIf="applyForm.controls['id'].invalid && (applyForm.controls['id'].dirty || applyForm.controls['id'].touched)" class="alert">
+          <div class="invalid-notification" *ngIf="applyForm.controls['id'].hasError('required')">
+            ID es requerido!
+          </div>
+          <div class="invalid-notification" *ngIf="applyForm.controls['id'].hasError('minlength')">
+            ID tiene que tener mínimo {{ applyForm.controls['id'].getError('minlength').requiredLength }} caracteres!
+          </div>
+          <div class="invalid-notification" *ngIf="applyForm.controls['id'].hasError('maxlength')">
+            ID tiene que tener máximo {{ applyForm.controls['id'].getError('maxlength').requiredLength }} caracteres!
+          </div>
         </div>
       </div>
 
@@ -33,19 +31,15 @@
           formControlName="name"
           placeholder="Tarjeta de Crédito"
         />
-        <div
-          *ngIf="
-            applyForm.controls['name'].invalid &&
-            (applyForm.controls['name'].dirty ||
-              applyForm.controls['name'].touched)
-          "
-          class="alert"
-        >
-          <div
-            class="invalid-notification"
-            *ngIf="applyForm.controls['name'].errors"
-          >
-            Nombre no válido!
+        <div *ngIf="applyForm.controls['name'].invalid && (applyForm.controls['name'].dirty || applyForm.controls['name'].touched)" class="alert">
+          <div class="invalid-notification" *ngIf="applyForm.controls['name'].hasError('required')">
+            Nombre es requerido!
+          </div>
+          <div class="invalid-notification" *ngIf="applyForm.controls['name'].hasError('minlength')">
+            Nombre tiene que tener mínimo {{ applyForm.controls['name'].getError('minlength').requiredLength }} caracteres!
+          </div>
+          <div class="invalid-notification" *ngIf="applyForm.controls['name'].hasError('maxlength')">
+            Nombre tiene que tener máximo {{ applyForm.controls['name'].getError('maxlength').requiredLength }} caracteres!
           </div>
         </div>
       </div>
@@ -61,19 +55,17 @@
           formControlName="description"
           placeholder="Descripción del producto"
         />
-        <div
-          *ngIf="
-            applyForm.controls['description'].invalid &&
+        <div *ngIf="applyForm.controls['description'].invalid &&
             (applyForm.controls['description'].dirty ||
-              applyForm.controls['description'].touched)
-          "
-          class="alert"
-        >
-          <div
-            class="invalid-notification"
-            *ngIf="applyForm.controls['description'].errors"
-          >
-            Descripción no válida!
+              applyForm.controls['description'].touched)" class="alert">
+          <div class="invalid-notification" *ngIf="applyForm.controls['description'].hasError('required')">
+            Descripción es requerida!
+          </div>
+          <div class="invalid-notification" *ngIf="applyForm.controls['description'].hasError('minlength')">
+            Descripción tiene que tener mínimo {{ applyForm.controls['description'].getError('minlength').requiredLength }} caracteres!
+          </div>
+          <div class="invalid-notification" *ngIf="applyForm.controls['description'].hasError('maxlength')">
+            Descripción tiene que tener máximo {{ applyForm.controls['description'].getError('maxlength').requiredLength }} caracteres!
           </div>
         </div>
       </div>
@@ -87,19 +79,11 @@
           formControlName="logo"
           placeholder="Imagen del producto"
         />
-        <div
-          *ngIf="
-            applyForm.controls['logo'].invalid &&
+        <div *ngIf="applyForm.controls['logo'].invalid &&
             (applyForm.controls['logo'].dirty ||
-              applyForm.controls['logo'].touched)
-          "
-          class="alert"
-        >
-          <div
-            class="invalid-notification"
-            *ngIf="applyForm.controls['logo'].errors"
-          >
-            Logo no válido!
+              applyForm.controls['logo'].touched)" class="alert">
+          <div class="invalid-notification" *ngIf="applyForm.controls['logo'].hasError('required')">
+            Logo es requerido!
           </div>
         </div>
       </div>
@@ -113,20 +97,14 @@
           type="date"
           class="form-control"
           formControlName="date_release"
+          [min]="minDate"
+          (change)="updateMinDateRevision($event)"
         />
-        <div
-          *ngIf="
-            applyForm.controls['date_release'].invalid &&
+        <div *ngIf="applyForm.controls['date_release'].invalid &&
             (applyForm.controls['date_release'].dirty ||
-              applyForm.controls['date_release'].touched)
-          "
-          class="alert"
-        >
-          <div
-            class="invalid-notification"
-            *ngIf="applyForm.controls['date_release'].errors"
-          >
-            Fecha no válida!
+              applyForm.controls['date_release'].touched)" class="alert">
+          <div class="invalid-notification" *ngIf="applyForm.controls['date_release'].hasError('required')">
+            Fecha es requerida!
           </div>
         </div>
       </div>
@@ -138,40 +116,31 @@
           type="date"
           class="form-control"
           formControlName="date_revision"
+          [min]="minDateRevision"
         />
-        <div
-          *ngIf="
-            applyForm.controls['date_revision'].invalid &&
+        <div *ngIf="applyForm.controls['date_revision'].invalid &&
             (applyForm.controls['date_revision'].dirty ||
-              applyForm.controls['date_revision'].touched)
-          "
-          class="alert"
-        >
-          <div
-            class="invalid-notification"
-            *ngIf="applyForm.controls['date_revision'].errors"
-          >
-            Fecha no válida!
+              applyForm.controls['date_revision'].touched)" class="alert">
+          <div class="invalid-notification" *ngIf="applyForm.controls['date_revision'].errors">
+            Fecha es requerida!
           </div>
         </div>
       </div>
     </div>
 
-    <div class="btn-group">
+    <div class="btn-group" style="margin-top: 1rem;">
       <button
         id="restart-btn"
         type="button"
         (click)="resetForm()"
-        class="grey-btn"
-      >
+        class="grey-btn">
         Reiniciar
       </button>
       <button
         id="send-btn"
         type="submit"
         (click)="submitApplication()"
-        class="primary-btn"
-      >
+        class="primary-btn">
         Enviar
       </button>
     </div>

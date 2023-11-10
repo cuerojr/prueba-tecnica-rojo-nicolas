@@ -1,7 +1,7 @@
 <section class="main-section">
 
   <div class="search-navbar">
-    <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchTerm">
+    <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchTerm" (input)="applyFilter()">
     <app-f4-add-product-btn></app-f4-add-product-btn>
   </div>
 
@@ -18,7 +18,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="cell" *ngFor="let item of allProducts | filter:searchTerm">
+        <tr class="cell" *ngFor="let item of filteredData.slice(startIndex(), endIndex() + 1)">
           <td><img style="width: 50px;display: block;margin: 1rem auto;" src="{{ item.logo }}" /></td>
           <td>{{ item.name }}</td>
           <td>{{ item.description }}</td>
@@ -37,11 +37,18 @@
   </div>
 
   <div style="display: flex;align-items: center;justify-content: end;padding: 1rem;">
-    <select class="form-control" id="allocation-algorithm" [(ngModel)]="qtyTerm">
-      <option value="0" selected></option>
+
+    <div>
+      <button (click)="currentPage = currentPage - 1" [disabled]="currentPage === 1">Previous</button>
+      {{ currentPage }} / {{ Math.ceil(filteredData.length / itemsPerPage) }}
+      <button (click)="currentPage = currentPage + 1" [disabled]="currentPage === Math.ceil(filteredData.length / itemsPerPage)">Next</button>
+    </div>
+
+    <select class="form-control" id="itemsPerPage" [(ngModel)]="itemsPerPage" (change)="applyFilter()">
       <option value="5">5</option>
       <option value="10">10</option>
       <option value="20">20</option>
     </select>
   </div>
+
 </section>

@@ -24,8 +24,11 @@ export class F4ProductDetailComponent {
   })
 
   constructor() {
-    //this.productId = Number(this.route.snapshot.params['id']);
     this.productId = this.route.snapshot.params['id'];
+  }
+
+  resetForm() {
+    this.applyForm.reset();
   }
 
   submitApplication() {

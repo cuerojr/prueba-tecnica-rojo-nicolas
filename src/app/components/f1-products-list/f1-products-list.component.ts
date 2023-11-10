@@ -9,24 +9,39 @@ import { ProductsService } from 'src/app/services/service.service';
 })
 export class F1ProductsListComponent implements OnInit {
   allProducts: Product[] = [];
+  filteredData: Product[] = [];
   searchTerm: string = '';
-  qtyTerm: number | undefined;
+  currentPage: number = 1;
+  itemsPerPage: number = 5;
+  Math = Math;
 
   constructor(private productsService: ProductsService) {}
 
   ngOnInit(): void {
-    this.getAPI();
+    this.loadData();
   }
 
-  getAPI() {
-    this.productsService.getProducts().subscribe((data) => {
-      this.allProducts = data;
+  loadData() {
+    this.productsService.getProducts().subscribe((response) => {
+      this.allProducts = response;
+      this.applyFilter();
     });
+  }
+
+  startIndex(): number {
+    return (this.currentPage - 1) * this.itemsPerPage;
+  }
+
+  endIndex(): number {
+    return Math.min(this.startIndex() + this.itemsPerPage - 1, this.filteredData.length - 1);
+  }
+
+  applyFilter() {
+    this.filteredData = this.allProducts.filter(
+      (item) => item.name.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
   }
 
   onDeleteClick(id: String) {}
 
-  formatDate(value: Date): String {
-    return new Intl.DateTimeFormat('en-US').format(value)
-  }
 }

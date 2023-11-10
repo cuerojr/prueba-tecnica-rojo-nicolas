@@ -24,3 +24,8 @@ input.ng-valid.ng-touched {
   position: absolute;
 
 }
+
+.form-cta {
+  margin-top: 1rem;
+}
+

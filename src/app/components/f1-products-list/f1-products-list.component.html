@@ -19,7 +19,7 @@
       </thead>
       <tbody>
         <tr class="cell" *ngFor="let item of filteredData.slice(startIndex(), endIndex() + 1)">
-          <td><img style="width: 50px;display: block;margin: 1rem auto;" src="{{ item.logo }}" /></td>
+          <td><img class="product-image" src="{{ item.logo }}" /></td>
           <td>{{ item.name }}</td>
           <td>{{ item.description }}</td>
           <td>{{ item.date_release | date:"shortDate" }}</td>
@@ -28,7 +28,7 @@
             <app-kebab (click)="toggleOptions(item.id)"></app-kebab>
             <ul class="options-list" [ngClass]="{ 'show-options': selectedItem === item.id }">
               <li><a [routerLink]="['product-detail', item.id]">Edit</a></li>
-              <li><a href="#!" (click)="onDeleteClick(item.id.toString())">Delete</a></li>
+              <li><a href="#!" (click)="showDeleteConfirmationModal(item.id.toString())">Delete</a></li>
             </ul>
           </td>
         </tr>
@@ -52,3 +52,6 @@
   </div>
 
 </section>
+<app-delete-confirmation-modal
+  *ngIf="isModalVisible"
+  (confirmed)="onModalConfirmed($event)"></app-delete-confirmation-modal>

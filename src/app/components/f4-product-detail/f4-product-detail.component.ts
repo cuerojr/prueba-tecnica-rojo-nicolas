@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { ProductsService } from 'src/app/services/service.service';
 import { minDateValidator } from 'src/app/utils/minDateValidator';
+import { Product } from 'src/app/interfaces/interfaces';
 
 @Component({
   selector: 'app-f4-product-detail',
@@ -14,7 +15,7 @@ import { minDateValidator } from 'src/app/utils/minDateValidator';
 export class F4ProductDetailComponent implements OnInit  {
   route: ActivatedRoute = inject(ActivatedRoute);
   productService = inject(ProductsService);
-  productId = 0;
+  productId: string = '';
   minDate: string;
   minDateRevision: string;
 
@@ -35,6 +36,25 @@ export class F4ProductDetailComponent implements OnInit  {
   }
 
   ngOnInit() {
+    if (this.productId) {
+      // Load existing product data based on the ID
+      this.productService.getProductById(this.productId).subscribe(
+        (existingProduct: Product | undefined) => {
+          if (existingProduct) {
+            // Pre-fill the form with existing data
+            this.applyForm.patchValue(existingProduct as Partial<Product>);
+          } else {
+            console.error('Product not found for ID:', this.productId);
+            // Handle the case where the product is not found, maybe redirect or show an error message
+          }
+        },
+        (error: any) => {
+          console.error('Error loading existing product data:', error);
+          // Handle the error, maybe show an error message to the user
+        }
+      );
+    }
+
     this.subscribeToDateReleaseChanges();
   }
 
@@ -70,7 +90,24 @@ export class F4ProductDetailComponent implements OnInit  {
             }
           });
         } else {
-          console.error('ID is used');
+          this.productService.updateProduct(
+            this.applyForm.value.id as string,
+            this.applyForm.value.name as string,
+            this.applyForm.value.description as string,
+            this.applyForm.value.logo as string,
+            this.applyForm.value.date_release as string,
+            this.applyForm.value.date_revision as string
+          ).subscribe({
+            next: (data) => {
+              return data;
+            },
+            error: (error) => {
+              console.log(error)
+            },
+            complete: () => {
+              this.router.navigate(['/']);
+            }
+          });
         }
       },
       (error: any) => {

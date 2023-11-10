@@ -80,7 +80,6 @@ button {
   margin: auto;
 }
 
-
 .dropdown-container {
   position: relative;
 }
@@ -95,6 +94,10 @@ button {
   margin: 0;
   z-index: 1;
   border-radius: 5px;
+}
+
+.options-list li {
+  padding: 0.5rem;
 }
 
 .options-list li a{
@@ -129,4 +132,11 @@ button {
   background: #555;
 }
 
-
+/* Styles for screens 650px and below */
+@media (max-width: 650px) {
+  .form-group{
+    display: grid;
+    justify-content: normal;
+    gap: 0;
+  }
+}

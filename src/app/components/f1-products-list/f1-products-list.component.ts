@@ -16,7 +16,8 @@ export class F1ProductsListComponent implements OnInit {
   Math = Math;
   showOptions = false;
   selectedItem: String | null = null;
-  products: any;
+  itemToDeleteId: string | null = null;
+  isModalVisible = false;
 
   constructor(private productsService: ProductsService) {}
 
@@ -68,4 +69,19 @@ export class F1ProductsListComponent implements OnInit {
   closeOptions(): void {
     this.showOptions = false;
   }
+
+  showDeleteConfirmationModal(itemId: string) {
+    this.itemToDeleteId = itemId;
+    this.isModalVisible = true;
+  }
+
+  onModalConfirmed(isConfirmed: boolean) {
+    if (isConfirmed && this.itemToDeleteId) {
+      this.onDeleteClick(this.itemToDeleteId);
+    }
+
+    this.itemToDeleteId = null;
+    this.isModalVisible = false;
+  }
+
 }

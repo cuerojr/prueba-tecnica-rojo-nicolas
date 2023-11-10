@@ -13,6 +13,7 @@ import { F4ProductDetailComponent } from './components/f4-product-detail/f4-prod
 import { ToolTipComponent } from './components/tool-tip/tool-tip.component';
 
 import { FilterPipe } from './pipes/filter.pipe';
+import { DeleteConfirmationModalComponent } from './components/delete-confirmation-modal/delete-confirmation-modal.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { FilterPipe } from './pipes/filter.pipe';
     KebabComponent,
     FilterPipe,
     F4ProductDetailComponent,
-    ToolTipComponent
+    ToolTipComponent,
+    DeleteConfirmationModalComponent
   ],
   imports: [
     BrowserModule,

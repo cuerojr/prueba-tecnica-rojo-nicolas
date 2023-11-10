@@ -58,3 +58,9 @@ td:last-child {
   padding: 1rem;
   gap: 1rem;
 }
+
+.product-image {
+  width: 50px;
+  display: block;
+  margin: 1rem auto;
+}

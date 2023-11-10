@@ -106,11 +106,76 @@ export class ProductsService {
       }
     ).pipe(
       catchError((error) => {
-        // Handle errors, log, or propagate the error as needed
         this.handleError('checkIdAvailability', error);
         return throwError(error) as Observable<boolean>;
       })
     );
+  }
+
+  getProductById(id: string): Observable<Product | undefined> {
+    const existingProduct = this.cachedData.find(product => product.id === id);
+
+    if (existingProduct) {
+      return of(existingProduct);
+    } else {
+      return of(undefined);
+    }
+  }
+
+  updateProduct(
+    id: String,
+    name: String,
+    description: String,
+    logo: String,
+    date_release: String,
+    date_revision: String): Observable<any> {
+      if (
+        !id ||
+        !name ||
+        !description ||
+        !logo ||
+        !date_release ||
+        !date_revision
+      ) {
+        return throwError('Invalid input data') as Observable<any>;
+      }
+
+      return this.http
+      .put(
+        `${this.baseUrl}/ipf-msa-productosfinancieros/bp/products`,
+        {
+          id,
+          name,
+          description,
+          logo,
+          date_release,
+          date_revision,
+        },
+        {
+          headers: {
+            authorId: `${this.authorId}`,
+          },
+        }
+      )
+      .pipe(
+        map((res: any) => {
+          const newItem = res;
+
+          const existingItemIndex = this.cachedData.findIndex(item => item.id === newItem.id);
+
+          if (existingItemIndex !== -1) {
+            this.cachedData[existingItemIndex] = newItem;
+          } else {
+            this.cachedData.push(newItem);
+          }
+
+          return of(this.cachedData);
+        }),
+        catchError((error) => {
+          this.handleError('createProduct', error);
+          return throwError(error) as Observable<any>;
+        })
+      );
   }
 
   public handleError<T>(operation = 'operation', result?: T) {

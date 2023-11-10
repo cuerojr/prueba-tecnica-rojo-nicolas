@@ -33,12 +33,12 @@ export class F4ProductDetailComponent {
 
   submitApplication() {
     this.productService.createProduct(
-      this.applyForm.value.id ?? '',
-      this.applyForm.value.name ?? '',
-      this.applyForm.value.description ?? '',
-      this.applyForm.value.logo ?? '',
-      this.applyForm.value.date_release ?? '',
-      this.applyForm.value.date_revision ?? ''
+      this.applyForm.value.id as string,
+      this.applyForm.value.name as string,
+      this.applyForm.value.description as string,
+      this.applyForm.value.logo as string,
+      this.applyForm.value.date_release as string,
+      this.applyForm.value.date_revision as string
     );
   }
 

@@ -1,3 +1,6 @@
+# Repo Info
+https://github.com/cuerojr/prueba-tecnica-rojo-nicolas
+
 # PruebaTecnicaRojoNicolas
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.9.
